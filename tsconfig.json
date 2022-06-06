@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "noImplicitAny": false,
+    "outDir": "build",
+    "rootDir": "src",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
