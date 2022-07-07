@@ -1,0 +1,14 @@
+<body>
+    <div class="border-yellow">
+        <turbo-frame id="bar">
+            <div data-controller="hello">
+                <input data-hello-target="name" type="text">
+                <button data-action="click->hello#greet">Greet</button>
+                <div data-hello-target="output">name goes here</div>
+                <div data-hello-target="steps">
+                    MESSAGES
+                </div>
+            </div>
+        </turbo-frame>
+    </div>
+</body>
