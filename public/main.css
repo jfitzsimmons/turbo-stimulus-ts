@@ -1,5 +1,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  background: #000800;
+  color: #eee;
 }
 
 .border-blue {
