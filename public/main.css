@@ -1,7 +1,75 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
-  background: #000800;
+  background: #101011;
   color: #eee;
+}
+.step-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.step {
+  min-width: 70px;
+  padding: 20px;
+  color: #727271;
+}
+
+.step__label {
+  border-radius: 50%;
+  background: #727271;
+  color: #101011;
+  width: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.stepA__grid {
+  display: grid;
+  grid-template-columns: repeat(2, [col-start] 1fr);
+}
+
+.stepA__grid > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #020202;
+  color: #727271;
+}
+
+.stepB,
+.stepC,
+.stepE,
+.stepF,
+.stepG {
+  text-align: right;
+  position: relative;
+}
+
+.stepD {
+  text-align: center;
+}
+
+.zeros {
+  color: #020202;
+}
+
+.red {
+  color: #b844b8;
+}
+
+.blue {
+  color: #3077aa;
+}
+
+.gray::after {
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: #b844b8;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 25px;
 }
 
 .border-blue {
