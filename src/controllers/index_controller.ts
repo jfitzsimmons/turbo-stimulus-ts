@@ -8,6 +8,6 @@ export default class extends Controller {
   declare readonly hasOutputTarget: boolean;
 
   jump() {
-    Turbo.visit("/hello.html", { action: "replace" });
+    Turbo.visit("/karatsuba.html", { action: "replace" });
   }
 }
