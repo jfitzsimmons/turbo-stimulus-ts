@@ -28,12 +28,18 @@ export default class extends Controller {
   }
 
   calculateL0() {
+    bce.length = 0;
+    steps.length = 0;
+    singles.length = 0;
+    dividers.length = 0;
     // TESTJPF 252 X 63 DOES NOT WORK
     //Test with old commit and start branching
     //console.log(this.karatsuba(2531, 11467));
-
     this.karatsuba(this.nums);
     //console.log(this.karatsuba(25, 63));
+
+    //console.log(this.karatsuba(2531, 1467));
+    //console.log(this.karatsuba(252, 63));
     //console.log(this.karatsuba(25, 14))
     console.dir(bce);
     console.dir(steps);
@@ -43,16 +49,14 @@ export default class extends Controller {
     const figure: string = this.Figure();
     this.stepsTarget.innerHTML = figure;
     console.log(this.nums);
-    bce.length = 0;
-    steps.length = 0;
-    singles.length = 0;
-    dividers.length = 0;
+
     // this.outputTarget.innerHTML = this.numsTargets.values;
   }
 
   splitter = (whole: string, divider: number) => {
-    const half1: number = parseInt(whole.substring(0, divider));
-    const half2: number = parseInt(whole.substring(divider));
+    const half1: number = parseInt(whole.substring(0, whole.length - divider));
+    console.log(`TESTJPF: ${whole} | ${whole.length} | ${divider}`);
+    const half2: number = parseInt(whole.substring(whole.length - divider));
     const arr: [number, number] = [half1, half2];
     console.log(`divider in split: ${divider}`);
     dividers.push(divider);

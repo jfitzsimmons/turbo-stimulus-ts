@@ -9,23 +9,31 @@ body {
   flex-wrap: wrap;
 }
 .step {
-  min-width: 70px;
   padding: 20px;
-  color: #727271;
+  color: #7f7f78;
 }
 
 .step__label {
   border-radius: 50%;
-  background: #727271;
+  background: #7f7f78;
   color: #101011;
   width: 20px;
   text-align: center;
   margin-bottom: 20px;
 }
 
+.red > .step__label {
+  background: #b844b8;
+}
+
+.blue > .step__label {
+  background: #3077aa;
+}
+
 .stepA__grid {
   display: grid;
   grid-template-columns: repeat(2, [col-start] 1fr);
+  min-width: 70px;
 }
 
 .stepA__grid > div {
@@ -33,7 +41,10 @@ body {
   justify-content: center;
   align-items: center;
   background: #020202;
-  color: #727271;
+  color: #7f7f78;
+  margin: 3px;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .stepB,
