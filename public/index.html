@@ -1,24 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="main.css" />
-  <script src="/bundle.js" async></script>
-</head>
-<body>
-  <h1>Turbo + Stimulus</h1>
-  <turbo-frame id="bar">
-    <div data-controller="index" class="border-green">
-      <div data-index-target="output">index.html</div>
-      <a href="./foo.html">link to foo.html</a>
-      <a href="./hello.html">link to hello.html</a>
-      <div>
-        <button data-action="click->index#jump">Visit hello.html</button>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="main.css" />
+    <script src="/bundle.js" async></script>
+  </head>
+  <body>
+    <h1>Turbo + Stimulus</h1>
+    <turbo-frame id="bar">
+      <div data-controller="index" class="border-green">
+        <div data-index-target="output">index.html</div>
+        <a href="./foo.html">link to foo.html</a>
+        <a href="./karatsuba.html">link to karatsuba.html</a>
+        <div>
+          <button data-action="click->index#jump">Visit karatsuba.html</button>
+        </div>
       </div>
-    </div>
-
-  </turbo-frame>
-  <hr />
-  <a href="https://github.com/masuidrive/turbo-stimulus-typescript-starter">source code</a>
-</body>
+    </turbo-frame>
+    <hr />
+    <a href="https://github.com/masuidrive/turbo-stimulus-typescript-starter"
+      >source code</a
+    >
+  </body>
 </html>

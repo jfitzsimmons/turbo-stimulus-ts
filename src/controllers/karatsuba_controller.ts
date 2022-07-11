@@ -9,9 +9,10 @@ const steps: [number, number, number][] = [];
 const dividers: number[] = [];
 
 export default class extends Controller {
-  static targets = ["name", "output", "steps"];
+  static targets = ["num1", "nums", "output", "steps"];
 
-  declare readonly nameTarget: HTMLInputElement;
+  declare readonly numsTargets: HTMLInputElement[];
+  declare readonly num1Target: HTMLInputElement;
   declare readonly hasOutputTarget: boolean;
   declare readonly outputTarget: Element;
   declare readonly outputTargets: Element[];
@@ -26,51 +27,64 @@ export default class extends Controller {
     return FigureTemplate(bce, stepB, stepC, stepE, stepsR, dividers);
   }
 
-  greet() {
+  calculateL0() {
+    // TESTJPF 252 X 63 DOES NOT WORK
+    //Test with old commit and start branching
     //console.log(this.karatsuba(2531, 11467));
-    //console.log(this.karatsuba(2531, 1467));
-    console.log(this.karatsuba(25, 63));
+
+    this.karatsuba(this.nums);
+    //console.log(this.karatsuba(25, 63));
     //console.log(this.karatsuba(25, 14))
     console.dir(bce);
     console.dir(steps);
     console.dir(singles);
     console.dir(dividers);
+    //const numsInput = this.numsTargets;
     const figure: string = this.Figure();
     this.stepsTarget.innerHTML = figure;
+    console.log(this.nums);
+    bce.length = 0;
+    steps.length = 0;
+    singles.length = 0;
+    dividers.length = 0;
+    // this.outputTarget.innerHTML = this.numsTargets.values;
   }
 
   splitter = (whole: string, divider: number) => {
     const half1: number = parseInt(whole.substring(0, divider));
     const half2: number = parseInt(whole.substring(divider));
     const arr: [number, number] = [half1, half2];
-
+    console.log(`divider in split: ${divider}`);
     dividers.push(divider);
 
     return arr;
   };
 
-  karatsuba(num1, num2) {
-    if (isSingle(num1, num2)) {
-      singles.push([num1, num2]);
-      return num1 * num2;
+  karatsuba(nums: number[]) {
+    if (isSingle(nums[0], nums[1])) {
+      singles.push([nums[0], nums[1]]);
+      return nums[0] * nums[1];
     }
-    console.log(`SPLIT: ${num1} | ${num2}`);
+    console.log(`SPLIT: ${nums[0]} | ${nums[1]}`);
 
-    const short = Math.min(num1.toString().length, num2.toString().length);
+    const short = Math.min(
+      nums[0].toString().length,
+      nums[1].toString().length
+    );
+
     const mid = Math.floor(short / 2);
     const [n1h1, n1h2]: [n1h1: number, n1h2: number] = this.splitter(
-      num1.toString(),
-      num1.toString().length - mid
+      nums[0].toString(),
+      mid
     );
 
-    const [n2h1, n2h2] = this.splitter(
-      num2.toString(),
-      num2.toString().length - mid
-    );
+    console.log(`short: ${short} | mid: ${mid} | `);
+
+    const [n2h1, n2h2] = this.splitter(nums[1].toString(), mid);
     bce.push([n1h1, n2h1], [n1h2, n2h2], [n1h2 + n1h1, n2h2 + n2h1]);
-    const stepB = this.karatsuba(n1h1, n2h1);
-    const stepC = this.karatsuba(n1h2, n2h2);
-    const stepE = this.karatsuba(n1h2 + n1h1, n2h2 + n2h1);
+    const stepB: number = this.karatsuba([n1h1, n2h1]);
+    const stepC: number = this.karatsuba([n1h2, n2h2]);
+    const stepE: number = this.karatsuba([n1h2 + n1h1, n2h2 + n2h1]);
 
     console.log(`stepB: ${stepB} | stepC: ${stepC} |  stepE: ${stepE}`);
     steps.push([stepB, stepC, stepE]);
@@ -79,7 +93,10 @@ export default class extends Controller {
     );
   }
 
-  get name() {
-    return this.nameTarget.value;
+  get nums() {
+    return [
+      parseInt(this.numsTargets[0].value),
+      parseInt(this.numsTargets[1].value),
+    ];
   }
 }

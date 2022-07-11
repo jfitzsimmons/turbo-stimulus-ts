@@ -1,1 +1,2 @@
-export const isSingle = (n1, n2) => (n1 < 10 || n2 < 10 ? true : false);
+export const isSingle = (n1: number, n2: number) =>
+  n1 < 10 || n2 < 10 ? true : false;
