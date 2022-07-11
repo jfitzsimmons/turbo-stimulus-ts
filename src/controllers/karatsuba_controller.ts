@@ -47,8 +47,33 @@ export default class extends Controller {
     console.dir(dividers);
     //const numsInput = this.numsTargets;
     const figure: string = this.Figure();
-    this.stepsTarget.innerHTML = figure;
+    this.stepsTarget.innerHTML += figure;
+    if (!isSingle(bce[0][0], bce[0][1])) {
+      //B-BUTTON TESTJPF
+      //aint pretty but works
+      console.log("b button test");
+      const b: HTMLElement = document.getElementById("stepB");
+      b.addEventListener("click", () => this.calculateL1(bce[0]));
+    }
+
     console.log(this.nums);
+
+    // this.outputTarget.innerHTML = this.numsTargets.values;
+  }
+
+  calculateL1(nums: number[]) {
+    bce.length = 0;
+    steps.length = 0;
+    singles.length = 0;
+    dividers.length = 0;
+    // TESTJPF 252 X 63 DOES NOT WORK
+    //Test with old commit and start branching
+    //console.log(this.karatsuba(2531, 11467));
+    this.karatsuba(nums);
+
+    //const numsInput = this.numsTargets;
+    const figure: string = this.Figure();
+    this.stepsTarget.innerHTML += figure;
 
     // this.outputTarget.innerHTML = this.numsTargets.values;
   }
