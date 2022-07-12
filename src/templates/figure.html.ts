@@ -1,5 +1,4 @@
-import { isSingle } from "../utils/base";
-import { BceDivTemplate } from "./bce.html";
+import { BceTemplate } from "./bce.html";
 const trailingZeros = (n: number) => {
   let zeros = "";
   for (let i = n; i--; ) {
@@ -8,7 +7,6 @@ const trailingZeros = (n: number) => {
   return zeros;
 };
 
-const colorCheck = (red: boolean) => (red ? "red" : "gray");
 /**
  * onclick events and "red" class if step passes single check!!!
  * TESTJPF
@@ -18,6 +16,7 @@ const colorCheck = (red: boolean) => (red ? "red" : "gray");
  * instead of adding red class, conditional a button element!!!
  */
 export const FigureTemplate = (
+  level: string,
   bce: [number, number][],
   stepB: [number, number],
   stepC: [number, number],
@@ -27,6 +26,7 @@ export const FigureTemplate = (
 ) => {
   return (
     /*html*/ `
+    
   <div id="stepA" class="step stepA karat">
     <div class="step__label">A</div>
     <div class="stepA__grid">
@@ -37,34 +37,18 @@ export const FigureTemplate = (
     </div>
   </div>
   ` +
-    BceDivTemplate(stepB) +
-    `
-  <div
-    id="stepC"
-    class="step stepC karat ${colorCheck(isSingle(stepC[0], stepC[1]))}"
-  >
-    <div class="step__label">C</div>
-    ${stepC[0]}<br />
-    x ${stepC[1]}
-    <hr />
-    ${stepC[0] * stepC[1]}
-  </div>
+    BceTemplate(level, stepB, "B") +
+    BceTemplate(level, stepC, "C") +
+    /*html*/ `
   <div id="stepD" class="step stepD blue">
     <div class="step__label">D</div>
     ${stepB[0]} + ${stepC[0]} = ${stepE[0]}
     <br />
     ${stepB[1]} + ${stepC[1]} = ${stepE[1]}
   </div>
-  <div
-    id="stepE"
-    class="step stepE karat ${colorCheck(isSingle(stepE[0], stepE[1]))}"
-  >
-    <div class="step__label">E</div>
-    ${stepE[0]}<br />
-    x ${stepE[1]}
-    <hr />
-    ${stepsR[0][2]}
-  </div>
+  ` +
+    BceTemplate(level, stepE, "E") +
+    /*html*/ `
   <div id="stepF" class="step stepF blue">
     <div class="step__label">F</div>
     ${stepsR[0][2]}<br />

@@ -3,10 +3,18 @@ body {
   background: #101011;
   color: #eee;
 }
-.step-container {
+.steps__row {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.steps > *:not(:first-child) {
+  border-left: 3px solid #b844b888;
+  border-right: 3px solid #b844b888;
+  border-top: 6px solid #b844b888;
+  border-bottom: 0;
+  border-radius: 40px 40px 6px 6px;
 }
 .step {
   padding: 20px;
@@ -72,15 +80,22 @@ body {
   color: #3077aa;
 }
 
-.gray::after {
-  content: "";
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  background: #b844b8;
-  border-radius: 50%;
+.step__button {
   position: absolute;
+  border-radius: 50%;
+  border: 0;
+  background: #b844b8;
   bottom: 25px;
+  transition: 1s;
+  height: 15px;
+  width: 15px;
+}
+
+.step__button.active {
+  background: #b844b888;
+  bottom: 0px;
+  transition: 500ms;
+  border-radius: 50% 50% 0% 0%;
 }
 
 .border-blue {
