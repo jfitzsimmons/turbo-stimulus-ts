@@ -7,15 +7,24 @@ const colorCheck = (red: boolean) => (red ? "red" : "gray");
  * TESTJPF
  * need a bce.html.js component
  */
-export const BceDivTemplate = (step: [number, number]) => /*html*/ `
+export const BceButtonTemplate = (level: string, letter: string) =>
+  /*html*/ `<button id="${level}${letter}Button" class="step__button"></button>`;
+
+export const BceTemplate = (
+  level: string,
+  step: [number, number],
+  letter: string
+) => {
+  const lastLevel: boolean = isSingle(step[0], step[1]);
+  return /*html*/ `
   <div
-    id="stepB"
-    class="step stepB karat ${colorCheck(isSingle(step[0], step[1]))}"
+    id="${level}step${letter}"
+    class="step step${letter} karat ${colorCheck(lastLevel)}"
   >
-    <div class="step__label">B</div>
+    <div class="step__label">${letter}</div>
     ${step[0]}<br />
     x ${step[1]}
     <hr />
     ${step[0] * step[1]}
-  </div>
-`;
+   ${!lastLevel ? BceButtonTemplate(level, letter) : ""}</div>`;
+};

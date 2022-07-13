@@ -3,14 +3,36 @@ body {
   background: #101011;
   color: #eee;
 }
-.step-container {
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.steps > *:not(:first-child) {
+  border-left: 3px solid #b844b888;
+  border-right: 3px solid #b844b888;
+  border-top: 6px solid #b844b888;
+  border-bottom: 0;
+  border-radius: 40px 40px 6px 6px;
+}
+
+.steps__row {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  width: fit-content;
 }
+
 .step {
-  padding: 20px;
+  margin: 10px;
   color: #7f7f78;
+  padding: 10px;
+}
+
+.step:not(:first-child) {
+  border-left: 1px solid #987f9888;
 }
 
 .step__label {
@@ -61,7 +83,7 @@ body {
 }
 
 .zeros {
-  color: #020202;
+  color: #7f7f78;
 }
 
 .red {
@@ -72,15 +94,22 @@ body {
   color: #3077aa;
 }
 
-.gray::after {
-  content: "";
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  background: #b844b8;
-  border-radius: 50%;
+.step__button {
   position: absolute;
+  border-radius: 50%;
+  border: 0;
+  background: #b844b8;
   bottom: 25px;
+  transition: 1s;
+  height: 15px;
+  width: 15px;
+}
+
+.step__button.active {
+  background: #b844b888;
+  bottom: -10px;
+  transition: 500ms;
+  border-radius: 50% 50% 0% 0%;
 }
 
 .border-blue {
