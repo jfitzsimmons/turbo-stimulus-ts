@@ -58,19 +58,19 @@ export default class extends Controller {
     if (!isSingle(bNums[0], bNums[1])) {
       const btn: HTMLElement = document.getElementById(level + "BButton");
       btn.addEventListener("click", (e) =>
-        this.calculate(e, bNums, "l" + (levelNumber + 1), btn)
+        this.calculate(e, bNums, levelNumber + 1, btn)
       );
     }
     if (!isSingle(cNums[0], cNums[1])) {
       const btn: HTMLElement = document.getElementById(level + "CButton");
       btn.addEventListener("click", (e) =>
-        this.calculate(e, cNums, "l" + (levelNumber + 1), btn)
+        this.calculate(e, cNums, levelNumber + 1, btn)
       );
     }
     if (!isSingle(eNums[0], eNums[1])) {
       const btn: HTMLElement = document.getElementById(level + "EButton");
       btn.addEventListener("click", (e) =>
-        this.calculate(e, eNums, "l" + (levelNumber + 1), btn)
+        this.calculate(e, eNums, levelNumber + 1, btn)
       );
     }
   }
@@ -78,7 +78,7 @@ export default class extends Controller {
   calculate(
     e: MouseEvent,
     nums: number[] | null,
-    level: string | null,
+    level: number | null,
     button: HTMLElement | null
   ) {
     e.preventDefault;
@@ -89,10 +89,13 @@ export default class extends Controller {
     console.log(`1: ${nums}`);
     this.karatsuba(nums ? nums : this.nums);
     console.log(`2: level ${level}`);
-    this.createFigure(level ? level : "l0");
+    this.createFigure(level ? "l" + level : "l0");
     console.log("3");
     if (button) {
-      const actives = document.querySelectorAll(".active");
+      const row = document.getElementsByClassName(`steps__rowl${level - 1}`);
+      const actives = row[0].querySelectorAll(".active");
+      console.log(row);
+      console.log(actives);
       actives.forEach((a) => {
         a.classList.remove("active");
       });
