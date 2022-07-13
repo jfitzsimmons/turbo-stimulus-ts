@@ -1,5 +1,9 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
+    monospace;
   background: #101011;
   color: #eee;
 }
@@ -15,7 +19,9 @@ body {
   border-right: 3px solid #b844b888;
   border-top: 6px solid #b844b888;
   border-bottom: 0;
-  border-radius: 40px 40px 6px 6px;
+  border-radius: 40px;
+  box-shadow: 0 -5px 15px 0 #0009;
+  background: #8891;
 }
 
 .steps__row {
@@ -33,6 +39,7 @@ body {
 
 .step:not(:first-child) {
   border-left: 1px solid #987f9888;
+  text-shadow: 0 0 2px #001;
 }
 
 .step__label {
@@ -42,6 +49,7 @@ body {
   width: 20px;
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: none;
 }
 
 .red > .step__label {
@@ -101,15 +109,22 @@ body {
   background: #b844b8;
   bottom: 25px;
   transition: 1s;
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  margin-left: 4px;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .step__button.active {
-  background: #b844b888;
+  background: #6d2e6e;
+  color: #6d2e6e;
   bottom: -10px;
   transition: 500ms;
   border-radius: 50% 50% 0% 0%;
+  cursor: auto;
+  box-shadow: 0 -2px 2px 0 #001;
 }
 
 .border-blue {

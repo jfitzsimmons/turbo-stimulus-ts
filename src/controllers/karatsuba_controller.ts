@@ -91,6 +91,10 @@ export default class extends Controller {
     console.log(`2: level ${level}`);
     this.createFigure(level ? "l" + level : "l0");
     console.log("3");
+    /**
+     * TESTJPF
+     * Making the step text lighter on "ACTIVE" woiuld look good too!
+     */
     if (button) {
       const row = document.getElementsByClassName(`steps__rowl${level - 1}`);
       const actives = row[0].querySelectorAll(".active");
