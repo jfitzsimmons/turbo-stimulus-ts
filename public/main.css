@@ -3,10 +3,11 @@ body {
   background: #101011;
   color: #eee;
 }
-.steps__row {
+
+.steps {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 .steps > *:not(:first-child) {
@@ -16,6 +17,14 @@ body {
   border-bottom: 0;
   border-radius: 40px 40px 6px 6px;
 }
+
+.steps__row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: fit-content;
+}
+
 .step {
   padding: 20px;
   color: #7f7f78;
