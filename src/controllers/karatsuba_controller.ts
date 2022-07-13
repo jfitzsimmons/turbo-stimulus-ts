@@ -13,6 +13,21 @@ export default class extends Controller {
   declare readonly numsTargets: HTMLInputElement[];
   declare readonly stepsTarget: Element;
 
+  /**
+   *
+   * Testjpf
+   * 9007199254740991 max integer.
+   * may be able to cobble together stings from stepG
+   *  for greater than
+   * 3001427978 * 300096999
+   *
+   * TODO
+   * Make buttons unique per level
+   * concatenate large numbers over js limit for result
+   * put requirements on tep bc & e to limit big numbers
+   * polish and content
+   */
+
   Figure(level: string) {
     console.log("FIGURE");
     const stepB = bce[0] ? bce[0] : singles[0];

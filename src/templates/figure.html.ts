@@ -24,6 +24,18 @@ export const FigureTemplate = (
   stepsR: [number, number, number][],
   dividers: number[]
 ) => {
+  //testjpf cleanup delete
+  console.log(stepsR);
+  console.log(
+    stepsR[0][0] * 10 ** (dividers[0] * 2) +
+      (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0] +
+      stepsR[0][1]
+  );
+  console.log(
+    `1:${stepsR[0][0] * 10 ** (dividers[0] * 2)} | 2:${
+      (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0]
+    } | 3:${stepsR[0][1]}`
+  );
   return (
     /*html*/ `
     

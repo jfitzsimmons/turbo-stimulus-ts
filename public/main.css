@@ -26,8 +26,13 @@ body {
 }
 
 .step {
-  padding: 20px;
+  margin: 10px;
   color: #7f7f78;
+  padding: 10px;
+}
+
+.step:not(:first-child) {
+  border-left: 1px solid #987f9888;
 }
 
 .step__label {
@@ -78,7 +83,7 @@ body {
 }
 
 .zeros {
-  color: #020202;
+  color: #7f7f78;
 }
 
 .red {
@@ -102,7 +107,7 @@ body {
 
 .step__button.active {
   background: #b844b888;
-  bottom: 0px;
+  bottom: -10px;
   transition: 500ms;
   border-radius: 50% 50% 0% 0%;
 }
