@@ -1,4 +1,15 @@
 import { BceTemplate } from "./bce.html";
+import { ResultTemplate } from "./result.html";
+
+//const max = 36028797020925944;
+
+/**testjpf
+ * if i remove digit from max
+ * ex: 3602879702092599
+ * take last digit and mak 0? concatenate after?
+ *  by number of digits greater than max.length
+ * ex: 3602879702092599.length = 16
+ * */
 const trailingZeros = (n: number) => {
   let zeros = "";
   for (let i = n; i--; ) {
@@ -14,6 +25,7 @@ const trailingZeros = (n: number) => {
  * 2 templates? on clickable on not?
  * may require more granular abstraction in the template.
  * instead of adding red class, conditional a button element!!!
+ * 6002850578 * 6001948
  */
 export const FigureTemplate = (
   level: string,
@@ -69,21 +81,8 @@ export const FigureTemplate = (
     <hr />
     ${stepsR[0][2] - stepsR[0][1] - stepsR[0][0]}
   </div>
-  <div id="stepG" class="step stepG blue">
-    <div class="step__label">G</div>
-    ${stepsR[0][0]}<span class="zeros">${trailingZeros(dividers[0] * 2)}</span
-    ><br />
-    + ${stepsR[0][2] - stepsR[0][1] - stepsR[0][0]}<span class="zeros"
-      >${trailingZeros(dividers[0])}</span
-    ><br />
-    + ${stepsR[0][1]}
-    <hr />
-    ${
-      stepsR[0][0] * 10 ** (dividers[0] * 2) +
-      (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0] +
-      stepsR[0][1]
-    }
-  </div>
-`
+  ` +
+    ResultTemplate(stepsR, dividers) +
+    "</div>"
   );
 };

@@ -20,7 +20,7 @@ body {
   border-top: 6px solid #b844b888;
   border-bottom: 0;
   border-radius: 40px;
-  box-shadow: 0 -5px 15px 0 #0009;
+  box-shadow: 0 -5px 15px 0 #0019;
   background: #8891;
 }
 
@@ -35,6 +35,11 @@ body {
   margin: 10px;
   color: #7f7f78;
   padding: 10px;
+  transition: 500ms;
+}
+
+.step.active {
+  color: #fffc;
 }
 
 .step:not(:first-child) {
@@ -50,6 +55,11 @@ body {
   text-align: center;
   margin-bottom: 20px;
   text-shadow: none;
+  transition: 500ms;
+}
+
+.active .step__label {
+  background: #fffd;
 }
 
 .red > .step__label {
