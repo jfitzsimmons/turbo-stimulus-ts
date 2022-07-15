@@ -7,6 +7,7 @@ const bce: [number, number][] = [];
 const singles: [number, number][] = [];
 const steps: [number, number, number][] = [];
 const dividers: number[] = [];
+const stepMax = 3602879702092599;
 
 export default class extends Controller {
   static targets = ["nums", "output", "steps"];
@@ -14,26 +15,11 @@ export default class extends Controller {
   declare readonly numsTargets: HTMLInputElement[];
   declare readonly stepsTarget: Element;
 
-  /**
-   *
-   * Testjpf
-   * 9007199254740991 max integer.
-   * may be able to cobble together stings from stepG
-   *  for greater than
-   * 3001427978 * 300096999
-   *
-   * TODO
-   * Make buttons unique per level
-   * concatenate large numbers over js limit for result
-   * put requirements on tep bc & e to limit big numbers
-   * polish and content
-   */
-
   Figure(level: string) {
-    console.log("FIGURE");
+    const stepE = bce[2] ? bce[2] : singles[2];
+    if (stepE[0] * stepE[1] > stepMax) return null;
     const stepB = bce[0] ? bce[0] : singles[0];
     const stepC = bce[1] ? bce[1] : singles[1];
-    const stepE = bce[2] ? bce[2] : singles[2];
     const stepsR = steps.reverse();
 
     return FigureTemplate(level, bce, stepB, stepC, stepE, stepsR, dividers);
@@ -51,28 +37,33 @@ export default class extends Controller {
       for (let i = rows.length - 1; i > levelNumber - 1; i--)
         rows[i].parentNode.removeChild(rows[i]);
 
+    const figure: string | null = this.Figure(level);
     newRow.classList.add(`steps__row`, `steps__row${level}`);
-    const figure: string = this.Figure(level);
     newRow.innerHTML = figure;
-    this.stepsTarget.appendChild(newRow);
 
-    if (!isSingle(bNums[0], bNums[1])) {
-      const btn: HTMLElement = document.getElementById(level + "BButton");
-      btn.addEventListener("click", (e) =>
-        this.calculate(e, bNums, levelNumber + 1, btn)
-      );
-    }
-    if (!isSingle(cNums[0], cNums[1])) {
-      const btn: HTMLElement = document.getElementById(level + "CButton");
-      btn.addEventListener("click", (e) =>
-        this.calculate(e, cNums, levelNumber + 1, btn)
-      );
-    }
-    if (!isSingle(eNums[0], eNums[1])) {
-      const btn: HTMLElement = document.getElementById(level + "EButton");
-      btn.addEventListener("click", (e) =>
-        this.calculate(e, eNums, levelNumber + 1, btn)
-      );
+    if (figure) {
+      this.stepsTarget.appendChild(newRow);
+      if (!isSingle(bNums[0], bNums[1])) {
+        const btn: HTMLElement = document.getElementById(level + "BButton");
+        btn.addEventListener("click", (e) =>
+          this.calculate(e, bNums, levelNumber + 1, btn)
+        );
+      }
+      if (!isSingle(cNums[0], cNums[1])) {
+        const btn: HTMLElement = document.getElementById(level + "CButton");
+        btn.addEventListener("click", (e) =>
+          this.calculate(e, cNums, levelNumber + 1, btn)
+        );
+      }
+      if (!isSingle(eNums[0], eNums[1])) {
+        const btn: HTMLElement = document.getElementById(level + "EButton");
+        btn.addEventListener("click", (e) =>
+          this.calculate(e, eNums, levelNumber + 1, btn)
+        );
+      }
+    } else {
+      this.stepsTarget.appendChild(newRow);
+      newRow.innerHTML += `<div>ERROR: Result is too large</div>`;
     }
   }
 
