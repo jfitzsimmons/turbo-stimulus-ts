@@ -8,6 +8,93 @@ body {
   color: #eee;
 }
 
+.inputs {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.input-container {
+  position: relative;
+}
+
+input {
+  width: 6.5em;
+  height: 100%;
+  color: white;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom-color: #4188bb88;
+  margin: 0 10px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::placeholder {
+  color: hsla(0, 0%, 100%, 0.6);
+}
+
+.input__span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #4188bb;
+  transform-origin: bottom right;
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+input:focus ~ .input__span {
+  transform-origin: bottom left;
+  transform: scaleX(1);
+}
+
+.calc-button {
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  color: white;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  background-color: #8898;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+  margin: 0 10px;
+  border-radius: 15px;
+}
+
+.calc-button::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: #4188bb;
+  transform-origin: center;
+  transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+.calc-button:hover {
+  cursor: pointer;
+  color: #161616;
+}
+
+.calc-button:hover::before {
+  transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
+}
+
 .steps {
   display: flex;
   flex-direction: column;
@@ -67,7 +154,7 @@ body {
 }
 
 .blue > .step__label {
-  background: #3077aa;
+  background: #4188bb;
 }
 
 .stepA__grid {
@@ -109,7 +196,7 @@ body {
 }
 
 .blue {
-  color: #3077aa;
+  color: #4188bb;
 }
 
 .step__button {

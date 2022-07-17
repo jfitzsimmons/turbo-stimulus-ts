@@ -11,8 +11,8 @@ export const ResultTemplate = (
   console.log(`resultPrint: ${resultPrint}`);
 
   if (result > max) {
-    const resultPrint1st16 = resultPrint.substring(0, 15);
-    const diff = resultPrint.length - 15; //max.length-1;
+    const resultPrint1st16 = resultPrint.substring(0, 14);
+    const diff = resultPrint.length - 14; //max.length-1;
     const stepB = stepsR[0][0].toString() + trailingZeros(dividers[0] * 2);
     const stepC = stepsR[0][1].toString();
     const stepF =
@@ -53,7 +53,7 @@ export const ResultTemplate = (
       ><br />
       + ${stepsR[0][1]}
       <hr />
-      ${resultPrint}
+      <span id="result">${resultPrint}</span>
       <br />
     </div>
   `;

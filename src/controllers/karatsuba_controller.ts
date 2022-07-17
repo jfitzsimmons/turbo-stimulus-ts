@@ -8,12 +8,20 @@ const singles: [number, number][] = [];
 const steps: [number, number, number][] = [];
 const dividers: number[] = [];
 const stepMax = 3602879702092599;
+let standardSteps = 0;
 
 export default class extends Controller {
-  static targets = ["nums", "output", "steps"];
+  static targets = ["nums", "karatsuba", "steps"];
 
   declare readonly numsTargets: HTMLInputElement[];
   declare readonly stepsTarget: Element;
+  declare readonly karatsubaTarget: Element;
+  static calculate: (
+    e: MouseEvent,
+    nums: number[] | null,
+    level: number | null,
+    button: HTMLElement | null
+  ) => string;
 
   Figure(level: string) {
     const stepE = bce[2] ? bce[2] : singles[2];
@@ -41,6 +49,9 @@ export default class extends Controller {
     newRow.classList.add(`steps__row`, `steps__row${level}`);
     newRow.innerHTML = figure;
 
+    const stepsSaved = `Karatsuba: ${singles.length} | Standards ${standardSteps}`;
+    this.karatsubaTarget.innerHTML = stepsSaved;
+
     if (figure) {
       this.stepsTarget.appendChild(newRow);
       if (!isSingle(bNums[0], bNums[1])) {
@@ -67,6 +78,16 @@ export default class extends Controller {
     }
   }
 
+  setActiveButtons(level: number | null, button: HTMLElement) {
+    const row = document.getElementsByClassName(`steps__rowl${level - 1}`);
+    const actives = row[0].querySelectorAll(".active");
+    actives.forEach((a) => {
+      a.classList.remove("active");
+    });
+    button.classList.add("active");
+    button.parentElement.classList.add("active");
+  }
+
   calculate(
     e: MouseEvent,
     nums: number[] | null,
@@ -74,27 +95,31 @@ export default class extends Controller {
     button: HTMLElement | null
   ) {
     e.preventDefault;
-    bce.length = 0;
-    steps.length = 0;
-    singles.length = 0;
-    dividers.length = 0;
-    console.log(`1: ${nums}`);
-    this.karatsuba(nums ? nums : this.nums);
-    console.log(`2: level ${level}`);
-    this.createFigure(level ? "l" + level : "l0");
-    console.log("3");
+    (bce.length = 0),
+      (steps.length = 0),
+      (singles.length = 0),
+      (dividers.length = 0);
 
-    if (button) {
-      const row = document.getElementsByClassName(`steps__rowl${level - 1}`);
-      const actives = row[0].querySelectorAll(".active");
-      console.log(row);
-      console.log(actives);
-      actives.forEach((a) => {
-        a.classList.remove("active");
-      });
-      button.classList.add("active");
-      button.parentElement.classList.add("active");
-    }
+    const _nums = nums ? nums : this.nums;
+
+    standardSteps = _nums[0].toString().length * _nums[1].toString().length;
+    this.karatsuba(_nums);
+    // make return result so you can use for testing??
+    this.createFigure(level ? "l" + level : "l0");
+
+    if (button) this.setActiveButtons(level, button);
+
+    const result = document.getElementById("result");
+    console.log(`innerhtml: ${result.textContent}`);
+
+    console.log("bce");
+    console.dir(bce);
+    console.log("steps");
+    console.dir(steps);
+    console.log("singles");
+    console.dir(singles);
+    console.log("dividers");
+    console.dir(dividers);
   }
 
   splitter = (whole: string, divider: number) => {

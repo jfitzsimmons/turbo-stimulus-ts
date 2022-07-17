@@ -10,11 +10,19 @@ Modularize Head-->
   <div class="border-yellow">
     <turbo-frame id="bar">
       <div data-controller="karatsuba">
-        <input data-karatsuba-target="nums" type="text" />
-        x
-        <input data-karatsuba-target="nums" type="text" />
-        <button data-action="click->karatsuba#calculate">Greet</button>
-        <div data-karatsuba-target="output">name goes here</div>
+        <div class="inputs">
+          <div class="input-container">
+            <input data-karatsuba-target="nums" type="text" placeholder="Input Underline">
+            <span class="input__span"></span>
+          </div>
+          x
+          <div class="input-container">
+            <input data-karatsuba-target="nums" type="text" placeholder="Input Underline">
+            <span class="input__span"></span>
+          </div>
+          <button data-action="click->karatsuba#calculate" class="calc-button">Calculate</button>
+        </div>
+        <div data-karatsuba-target="karatsuba"></div>
         <div data-karatsuba-target="steps" class="steps"></div>
       </div>
     </turbo-frame>
