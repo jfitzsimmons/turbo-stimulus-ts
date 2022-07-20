@@ -3,6 +3,17 @@ import { Controller } from "@hotwired/stimulus";
 import { FigureTemplate } from "../templates/figure.html";
 import { isSingle } from "../utils/base";
 
+/** testjpf
+ *
+ * todos
+ *
+ * removve stimulus
+ * init load of karat step default buttons
+ * plus whatever else need onload
+ * add testing back
+ * more abstractin is needed / templates / css
+ */
+
 const bce: [number, number][] = [];
 const singles: [number, number][] = [];
 const steps: [number, number, number][] = [];
@@ -33,19 +44,20 @@ export default class extends Controller {
     return FigureTemplate(level, bce, stepB, stepC, stepE, stepsR, dividers);
   }
 
-  createFigure(level: string) {
+  createFigure(level: string, nums: number[]) {
     const bNums = bce[0];
     const cNums = bce[1];
     const eNums = bce[2];
     const newRow: HTMLElement = document.createElement("div");
     const rows: NodeListOf<Element> = document.querySelectorAll(".steps__row");
     const levelNumber: number = parseInt(level.slice(-1));
+    const _nums = nums ? nums : this.nums;
 
     if (rows.length > levelNumber)
       for (let i = rows.length - 1; i > levelNumber - 1; i--)
         rows[i].parentNode.removeChild(rows[i]);
 
-    const stepsSaved = /*html*/ `<div class="steps__savings"> <span class="red">Single digit multiplications:</span><br/>Karatsuba: ${singles.length} | Standards ${standardSteps}</div>`;
+    const stepsSaved = /*html*/ `<div class="steps__savings"> <span class="red">Single digit multiplications</span> for ${_nums[0]} x ${_nums[1]}:<br/>Karatsuba: ${singles.length} | Standard: ${standardSteps}</div>`;
     newRow.innerHTML = stepsSaved;
 
     const figure: string | null = this.Figure(level);
@@ -107,7 +119,7 @@ export default class extends Controller {
     standardSteps = _nums[0].toString().length * _nums[1].toString().length;
     this.karatsuba(_nums);
     // make return result so you can use for testing??
-    this.createFigure(level ? "l" + level : "l0");
+    this.createFigure(level ? "l" + level : "l0", nums);
 
     if (button) this.setActiveButtons(level, button);
 

@@ -15,22 +15,14 @@ Modularize Head-->
           <div class="description">
             <h1>How to Multiply Big Numbers Fast</h1>
             <h2>Traditional Way to Multiply 25 x 63</h2>
+            <p>
             Requires <span class="red"><b>four</b> single-digit multiplications</span> and some <span class="blue">additions.
-            </span></div>
+            </span>
+          </p></div>
           <div class="content">
-            <div id="l0stepB" class="red">
+
+            <div class="red">
               <div class="step__label">A</div>
-              <div class="equation">
-2<span class="gray">5</span><br/>x 6<span class="gray">3</span>
-              <hr>
-              1200
-            </div>
-         </div>
-            <div class="operator blue">
-            +
-            </div>
-            <div id="l0stepB" class="red">
-              <div class="step__label">B</div>
               <div class="equation">
                 <span class="gray">2</span>5<br/>x <span class="gray">6</span>3
               <hr>
@@ -40,8 +32,8 @@ Modularize Head-->
             <div class="operator blue">
               +
               </div>
-              <div id="l0stepB" class="red">
-                <div class="step__label">C</div>
+              <div class="red">
+                <div class="step__label">B</div>
   
                 <div class="equation">
                   2<span class="gray">5</span><br/>x <span class="gray">6</span>3
@@ -52,8 +44,8 @@ Modularize Head-->
             <div class="operator blue">
               +
               </div>
-              <div id="l0stepB" class="red">
-                <div class="step__label">D</div>
+              <div class="red">
+                <div class="step__label">C</div>
   
                 <div class="equation">
                   <span class="gray">2</span>5<br/>x 6<span class="gray">3</span>
@@ -61,6 +53,17 @@ Modularize Head-->
                 300
               </div>
            </div>
+           <div class="operator blue">
+            +
+            </div>
+           <div class="red">
+            <div class="step__label">D</div>
+            <div class="equation">
+2<span class="gray">5</span><br/>x 6<span class="gray">3</span>
+            <hr>
+            1200
+          </div>
+       </div>
               <div class="operator blue equals">
                = 1575
                 </div>
@@ -68,8 +71,8 @@ Modularize Head-->
                       <div class="description">
                        
                         <h2>Karatsuba Method to Multiply 25 x 63</h2>
-                        Requires <span class="red"><b>three</b> single-digit multiplications</span> plus some <span class="blue">additions and subtractions.
-                        </span>
+                        <p>Requires <span class="red"><b>three</b> single-digit multiplications</span> plus some <span class="blue">additions and subtractions.
+                        </span></p>
                         </div>
 
     <div class="step_instructions">
@@ -167,7 +170,8 @@ Modularize Head-->
             </div>
             </div>
             <div class="description">
-              As numbers increase in size, the Karatsuba method can be used repeatedly, breaking large numbers into small pieces to save an increasing number of single-digit multiplications.
+            <p>As numbers increase in size, the Karatsuba method can be used repeatedly, breaking large numbers into small pieces to save an increasing number of single-digit multiplications.</p>
+            <p>Traditional way to multiply 2,531 x 1,467 requires <span class="red">16 single-digit multiplications.</span></p>
               </div>
             <div class="content">
               <div class="equation">
@@ -207,24 +211,28 @@ Modularize Head-->
                   </div>
                         </div>
       </div>
-      <div class="inputs">
+      <div class="calculator">
+        <p class="description">Karatsuba method to multiply 2,531 x 1,467 requires <span class="red">9 single-digit multiplications.</span></p>
+        <h2 class="inputs__heading">Karatsuba Calculator:</h2>
+        <div class="inputs">
         <div class="input-container">
-          <input data-karatsuba-target="nums" type="text" placeholder="Input Underline">
+          <input data-karatsuba-target="nums" type="text" placeholder="Enter multi-digit number" value="2531">
           <span class="input__span"></span>
         </div>
-        x
+        <span class="operator blue">x</span>
         <div class="input-container">
-          <input data-karatsuba-target="nums" type="text" placeholder="Input Underline">
+          <input data-karatsuba-target="nums" type="text" placeholder="Enter multi-digit number" value="1467">
           <span class="input__span"></span>
         </div>
         <button data-action="click->karatsuba#calculate" class="calc-button">Calculate</button>
+      </div>
       </div>
         <div data-karatsuba-target="steps" class="steps">
  
           <div class="steps__row steps__rowl0">
             <div class="steps__savings">
-              <span class="red">Single digit multiplications:</span><br/>
-              Karatsuba: 9 | Standards 16</div>
+              <span class="red">Single digit multiplications</span> for 2531 x 1467<br/>
+              Karatsuba: 9 | Standard: 16</div>
           <div id="stepA" class="step stepA karat">
             <div class="step__label">A</div>
             <div class="stepA__grid">
