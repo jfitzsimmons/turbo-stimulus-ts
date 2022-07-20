@@ -7,32 +7,27 @@ const bce: [number, number][] = [];
 const singles: [number, number][] = [];
 const steps: [number, number, number][] = [];
 const dividers: number[] = [];
+const stepMax = 3602879702092599;
+let standardSteps = 0;
+
 export default class extends Controller {
-  static targets = ["nums", "output", "steps"];
+  static targets = ["nums", "karatsuba", "steps"];
 
   declare readonly numsTargets: HTMLInputElement[];
   declare readonly stepsTarget: Element;
-
-  /**
-   *
-   * Testjpf
-   * 9007199254740991 max integer.
-   * may be able to cobble together stings from stepG
-   *  for greater than
-   * 3001427978 * 300096999
-   *
-   * TODO
-   * Make buttons unique per level
-   * concatenate large numbers over js limit for result
-   * put requirements on tep bc & e to limit big numbers
-   * polish and content
-   */
+  declare readonly karatsubaTarget: Element;
+  static calculate: (
+    e: MouseEvent,
+    nums: number[] | null,
+    level: number | null,
+    button: HTMLElement | null
+  ) => string;
 
   Figure(level: string) {
-    console.log("FIGURE");
+    const stepE = bce[2] ? bce[2] : singles[2];
+    if (stepE[0] * stepE[1] > stepMax) return null;
     const stepB = bce[0] ? bce[0] : singles[0];
     const stepC = bce[1] ? bce[1] : singles[1];
-    const stepE = bce[2] ? bce[2] : singles[2];
     const stepsR = steps.reverse();
 
     return FigureTemplate(level, bce, stepB, stepC, stepE, stepsR, dividers);
@@ -50,54 +45,83 @@ export default class extends Controller {
       for (let i = rows.length - 1; i > levelNumber - 1; i--)
         rows[i].parentNode.removeChild(rows[i]);
 
-    newRow.classList.add(`steps__row`, `steps__row${level}`);
-    const figure: string = this.Figure(level);
-    newRow.innerHTML = figure;
-    this.stepsTarget.appendChild(newRow);
+    const stepsSaved = /*html*/ `<div class="steps__savings"> <span class="red">Single digit multiplications:</span><br/>Karatsuba: ${singles.length} | Standards ${standardSteps}</div>`;
+    newRow.innerHTML = stepsSaved;
 
-    if (!isSingle(bNums[0], bNums[1])) {
-      const btn: HTMLElement = document.getElementById(level + "BButton");
-      btn.addEventListener("click", (e) =>
-        this.calculate(e, bNums, "l" + (levelNumber + 1), btn)
-      );
+    const figure: string | null = this.Figure(level);
+    newRow.classList.add(`steps__row`, `steps__row${level}`);
+    newRow.innerHTML += figure;
+
+    if (figure) {
+      this.stepsTarget.appendChild(newRow);
+      if (!isSingle(bNums[0], bNums[1])) {
+        const btn: HTMLElement = document.getElementById(level + "BButton");
+        btn.addEventListener("click", (e) =>
+          this.calculate(e, bNums, levelNumber + 1, btn)
+        );
+      }
+      if (!isSingle(cNums[0], cNums[1])) {
+        const btn: HTMLElement = document.getElementById(level + "CButton");
+        btn.addEventListener("click", (e) =>
+          this.calculate(e, cNums, levelNumber + 1, btn)
+        );
+      }
+      if (!isSingle(eNums[0], eNums[1])) {
+        const btn: HTMLElement = document.getElementById(level + "EButton");
+        btn.addEventListener("click", (e) =>
+          this.calculate(e, eNums, levelNumber + 1, btn)
+        );
+      }
+    } else {
+      this.stepsTarget.appendChild(newRow);
+      newRow.innerHTML += `<div>ERROR: Result is too large</div>`;
     }
-    if (!isSingle(cNums[0], cNums[1])) {
-      const btn: HTMLElement = document.getElementById(level + "CButton");
-      btn.addEventListener("click", (e) =>
-        this.calculate(e, cNums, "l" + (levelNumber + 1), btn)
-      );
-    }
-    if (!isSingle(eNums[0], eNums[1])) {
-      const btn: HTMLElement = document.getElementById(level + "EButton");
-      btn.addEventListener("click", (e) =>
-        this.calculate(e, eNums, "l" + (levelNumber + 1), btn)
-      );
-    }
+  }
+
+  setActiveButtons(level: number | null, button: HTMLElement) {
+    const row = document.getElementsByClassName(`steps__rowl${level - 1}`);
+    const actives = row[0].querySelectorAll(".active");
+    actives.forEach((a) => {
+      a.classList.remove("active");
+    });
+    button.classList.add("active");
+    button.parentElement.classList.add("active");
   }
 
   calculate(
     e: MouseEvent,
     nums: number[] | null,
-    level: string | null,
+    level: number | null,
     button: HTMLElement | null
   ) {
     e.preventDefault;
-    bce.length = 0;
-    steps.length = 0;
-    singles.length = 0;
-    dividers.length = 0;
-    console.log(`1: ${nums}`);
-    this.karatsuba(nums ? nums : this.nums);
-    console.log(`2: level ${level}`);
-    this.createFigure(level ? level : "l0");
-    console.log("3");
-    if (button) {
-      const actives = document.querySelectorAll(".active");
-      actives.forEach((a) => {
-        a.classList.remove("active");
-      });
-      button.classList.add("active");
-    }
+    (bce.length = 0),
+      (steps.length = 0),
+      (singles.length = 0),
+      (dividers.length = 0);
+
+    if (!nums) document.getElementById("rowExample").classList.add("inactive");
+
+    const _nums = nums ? nums : this.nums;
+
+    standardSteps = _nums[0].toString().length * _nums[1].toString().length;
+    this.karatsuba(_nums);
+    // make return result so you can use for testing??
+    this.createFigure(level ? "l" + level : "l0");
+
+    if (button) this.setActiveButtons(level, button);
+
+    const result = document.getElementById("result");
+    console.log(`innerhtml: ${result.textContent}`);
+
+    console.log("bce");
+    console.dir(bce);
+    console.log("steps");
+    console.dir(steps);
+    console.log("singles");
+    console.dir(singles);
+    console.log("dividers");
+    console.dir(dividers);
   }
 
   splitter = (whole: string, divider: number) => {

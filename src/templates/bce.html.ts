@@ -8,7 +8,7 @@ const colorCheck = (red: boolean) => (red ? "red" : "gray");
  * need a bce.html.js component
  */
 export const BceButtonTemplate = (level: string, letter: string) =>
-  /*html*/ `<button id="${level}${letter}Button" class="step__button"></button>`;
+  /*html*/ `<button id="${level}${letter}Button" class="step__button">&#8675;</button>`;
 
 export const BceTemplate = (
   level: string,

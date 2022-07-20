@@ -1,20 +1,6 @@
 import { BceTemplate } from "./bce.html";
-const trailingZeros = (n: number) => {
-  let zeros = "";
-  for (let i = n; i--; ) {
-    zeros += "0";
-  }
-  return zeros;
-};
+import { ResultTemplate } from "./result.html";
 
-/**
- * onclick events and "red" class if step passes single check!!!
- * TESTJPF
- * need a bce.html.js component
- * 2 templates? on clickable on not?
- * may require more granular abstraction in the template.
- * instead of adding red class, conditional a button element!!!
- */
 export const FigureTemplate = (
   level: string,
   bce: [number, number][],
@@ -24,18 +10,11 @@ export const FigureTemplate = (
   stepsR: [number, number, number][],
   dividers: number[]
 ) => {
-  //testjpf cleanup delete
-  console.log(stepsR);
-  console.log(
+  const result: number =
     stepsR[0][0] * 10 ** (dividers[0] * 2) +
-      (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0] +
-      stepsR[0][1]
-  );
-  console.log(
-    `1:${stepsR[0][0] * 10 ** (dividers[0] * 2)} | 2:${
-      (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0]
-    } | 3:${stepsR[0][1]}`
-  );
+    (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0] +
+    stepsR[0][1];
+  if (result > 999999999889999900000) return null;
   return (
     /*html*/ `
     
@@ -69,21 +48,8 @@ export const FigureTemplate = (
     <hr />
     ${stepsR[0][2] - stepsR[0][1] - stepsR[0][0]}
   </div>
-  <div id="stepG" class="step stepG blue">
-    <div class="step__label">G</div>
-    ${stepsR[0][0]}<span class="zeros">${trailingZeros(dividers[0] * 2)}</span
-    ><br />
-    + ${stepsR[0][2] - stepsR[0][1] - stepsR[0][0]}<span class="zeros"
-      >${trailingZeros(dividers[0])}</span
-    ><br />
-    + ${stepsR[0][1]}
-    <hr />
-    ${
-      stepsR[0][0] * 10 ** (dividers[0] * 2) +
-      (stepsR[0][2] - stepsR[0][1] - stepsR[0][0]) * 10 ** dividers[0] +
-      stepsR[0][1]
-    }
-  </div>
-`
+  ` +
+    ResultTemplate(stepsR, dividers, result) +
+    "</div>"
   );
 };

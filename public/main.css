@@ -1,7 +1,105 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
+    monospace;
   background: #101011;
-  color: #eee;
+  color: #eef;
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+    "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
+    "Verdana Ref", sans-serif;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.input-container {
+  position: relative;
+}
+
+input {
+  width: 6.5em;
+  height: 100%;
+  color: white;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom-color: #4188bb88;
+  margin: 0 10px;
+}
+
+input:focus {
+  outline: none;
+}
+
+input::placeholder {
+  color: hsla(0, 0%, 100%, 0.6);
+}
+
+.input__span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #4188bb;
+  transform-origin: bottom right;
+  transform: scaleX(0);
+  transition: transform 0.5s ease;
+}
+
+input:focus ~ .input__span {
+  transform-origin: bottom left;
+  transform: scaleX(1);
+}
+
+.calc-button {
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  color: white;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  background-color: #8898;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+  margin: 0 10px;
+  border-radius: 15px;
+}
+
+.calc-button::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: #4188bb;
+  transform-origin: center;
+  transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+.calc-button:hover {
+  cursor: pointer;
+  color: #161616;
+}
+
+.calc-button:hover::before {
+  transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
 }
 
 .steps {
@@ -10,29 +108,115 @@ body {
   align-items: center;
 }
 
-.steps > *:not(:first-child) {
+.steps > *:not(:nth-child(-n + 1)) {
   border-left: 3px solid #b844b888;
   border-right: 3px solid #b844b888;
   border-top: 6px solid #b844b888;
   border-bottom: 0;
-  border-radius: 40px 40px 6px 6px;
+  border-radius: 40px;
+  box-shadow: 0 -12px 20px 0 #0018;
+  background: #8891;
+}
+.steps__savings {
+  margin: 20px;
 }
 
-.steps__row {
+.karatsuba > div {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.steps__row,
+.steps__rowEx,
+.step_instructions {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: fit-content;
 }
 
+.steps__rowEx {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.steps__rowEx > div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.steps__rowEx.inactive {
+  filter: saturate(50%);
+  background: #8871;
+  opacity: 0.9;
+  transition: 500ms;
+}
+.steps__rowEx:hover {
+  filter: saturate(100%);
+  background: #8870;
+  opacity: 1;
+  transition: 500ms;
+}
+
+.description {
+  font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+    "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
+    "Verdana Ref", sans-serif;
+  max-width: 800px;
+  padding: 20px;
+  min-width: 350px;
+  width: 40%;
+  letter-spacing: 1px;
+  background: #8871;
+  border-top: 3px dashed #eef;
+  border-bottom: 3px dashed #eef;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #7f7f78;
+  flex-wrap: wrap;
+}
+
+.equation {
+  text-align: right;
+}
+
+.operator {
+  text-align: center;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 33px;
+  display: flex;
+  align-self: center;
+}
+
+.slants {
+  opacity: 0.8;
+}
+
+.steps__savings {
+  width: 100%;
+}
+
 .step {
   margin: 10px;
   color: #7f7f78;
   padding: 10px;
+  transition: 500ms;
+}
+
+.step.active {
+  color: #fffc;
 }
 
 .step:not(:first-child) {
   border-left: 1px solid #987f9888;
+  text-shadow: 0 0 2px #001;
 }
 
 .step__label {
@@ -42,6 +226,21 @@ body {
   width: 20px;
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: none;
+  transition: 500ms;
+}
+
+.active .step__label {
+  background: #fffd;
+}
+
+.red,
+.blue,
+.gray {
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
+    monospace;
 }
 
 .red > .step__label {
@@ -49,7 +248,30 @@ body {
 }
 
 .blue > .step__label {
-  background: #3077aa;
+  background: #4188bb;
+}
+
+.gray {
+  color: #7f7f78;
+}
+
+.step__instruction {
+  min-width: 90px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 120px;
+}
+
+.stepA__example {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.stepA__input {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  text-align: right;
 }
 
 .stepA__grid {
@@ -91,7 +313,12 @@ body {
 }
 
 .blue {
-  color: #3077aa;
+  color: #4188bb;
+}
+
+.equation {
+  width: fit-content;
+  float: right;
 }
 
 .step__button {
@@ -101,33 +328,20 @@ body {
   background: #b844b8;
   bottom: 25px;
   transition: 1s;
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  margin-left: 4px;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .step__button.active {
-  background: #b844b888;
+  background: #6d2e6e;
+  color: #6d2e6e;
   bottom: -10px;
   transition: 500ms;
   border-radius: 50% 50% 0% 0%;
-}
-
-.border-blue {
-  border: 1px solid blue;
-  padding: 0.25em;
-}
-
-.border-yellow {
-  border: 1px solid yellow;
-  padding: 0.25em;
-}
-
-.border-purple {
-  border: 1px solid purple;
-  padding: 0.25em;
-}
-
-.border-green {
-  border: 1px solid green;
-  padding: 0.25em;
+  cursor: auto;
+  box-shadow: 0 -2px 2px 0 #001;
 }

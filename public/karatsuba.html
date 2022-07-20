@@ -9,13 +9,279 @@ Modularize Head-->
 <body>
   <div class="border-yellow">
     <turbo-frame id="bar">
-      <div data-controller="karatsuba">
-        <input data-karatsuba-target="nums" type="text" />
+      <div data-controller="karatsuba" class="karatsuba">
+
+        <div id="rowExample" class="steps__rowEx">
+          <div class="description">
+            <h1>How to Multiply Big Numbers Fast</h1>
+            <h2>Traditional Way to Multiply 25 x 63</h2>
+            Requires <span class="red"><b>four</b> single-digit multiplications</span> and some <span class="blue">additions.
+            </span></div>
+          <div class="content">
+            <div id="l0stepB" class="red">
+              <div class="step__label">A</div>
+              <div class="equation">
+2<span class="gray">5</span><br/>x 6<span class="gray">3</span>
+              <hr>
+              1200
+            </div>
+         </div>
+            <div class="operator blue">
+            +
+            </div>
+            <div id="l0stepB" class="red">
+              <div class="step__label">B</div>
+              <div class="equation">
+                <span class="gray">2</span>5<br/>x <span class="gray">6</span>3
+              <hr>
+              15
+            </div>
+         </div>
+            <div class="operator blue">
+              +
+              </div>
+              <div id="l0stepB" class="red">
+                <div class="step__label">C</div>
+  
+                <div class="equation">
+                  2<span class="gray">5</span><br/>x <span class="gray">6</span>3
+                <hr>
+                60
+              </div>
+           </div>
+            <div class="operator blue">
+              +
+              </div>
+              <div id="l0stepB" class="red">
+                <div class="step__label">D</div>
+  
+                <div class="equation">
+                  <span class="gray">2</span>5<br/>x 6<span class="gray">3</span>
+                <hr>
+                300
+              </div>
+           </div>
+              <div class="operator blue equals">
+               = 1575
+                </div>
+                      </div>
+                      <div class="description">
+                       
+                        <h2>Karatsuba Method to Multiply 25 x 63</h2>
+                        Requires <span class="red"><b>three</b> single-digit multiplications</span> plus some <span class="blue">additions and subtractions.
+                        </span>
+                        </div>
+
+    <div class="step_instructions">
+          <div id="stepA" class="step stepA karat">
+            <div class="step__label">A</div>
+            <div class="step__instruction">Break numbers up.</div>
+            <div class="stepA__example">
+           <div class="stepA__input"> <div>25</div>
+              <div>x 63</div></div>
+            <div class="stepA__grid">
+              <div>2</div>
+              <div>5</div>
+              <div>6</div>
+              <div>3</div>
+            </div>
+          </div>
+          </div>
+          
+          <div id="l0stepB" class="step stepB karat red">
+            <div class="step__label">B</div>
+
+            <div class="step__instruction">Multiply the tens.</div>
+            <div class="equation">
+            2<br>
+            x 6
+            <hr>
+            12
+          </div>
+       </div>
+          <div id="l0stepC" class="step stepC karat red">
+            <div class="step__label">C</div>
+            <div class="step__instruction">
+            Multiply the ones.
+          </div>
+          <div class="equation">
+            5<br>
+            x 3
+            <hr>
+            15
+            </div>
+       </div>
+          <div id="stepD" class="step stepD blue">
+            <div class="step__label">D</div>
+            <div class="step__instruction">
+
+            Add the digits.
+            </div>
+            <div class="equation">
+
+            2 + 5 = 7
+            <br>
+            6 + 3 = 9
+            </div>
+          </div>
+          
+          <div id="l0stepE" class="step stepE karat red">
+            <div class="step__label">E</div>
+            <div class="step__instruction">
+              Multiply the sums.
+              </div>
+              <div class="equation">
+
+            7<br>
+            x 9
+            <hr>
+            63
+          </div>
+          </div>
+          <div id="stepF" class="step stepF blue">
+            <div class="step__label">F</div>
+            <div class="step__instruction">
+              Subtract B and C from E</div>
+              <div class="equation">
+
+            63<br>
+            - 15<br>
+            - 12
+            <hr>
+            36
+            </div>
+          </div>
+          
+            <div id="stepG" class="step stepG blue">
+              <div class="step__label">G</div>
+              <div class="step__instruction">
+                Assemble the numbers.</div>
+                <div class="equation">
+
+              12<span class="zeros">00</span><br>
+              + 36<span class="zeros">0</span><br>
+              + 15
+              <hr>
+              <span id="result">1575</span>
+              </div>
+            </div>
+            </div>
+            <div class="description">
+              As numbers increase in size, the Karatsuba method can be used repeatedly, breaking large numbers into small pieces to save an increasing number of single-digit multiplications.
+              </div>
+            <div class="content">
+              <div class="equation">
+                <span class="red">2</span>531<br>
+                <span class="red slants">|\\\</span><br />
+                x <span class="red">1467</span>
+              </div>
+              <div class="operator blue">
+              +
+              </div>
+              <div class="equation">
+                2<span class="red">5</span>31<br>
+                <span class="red slants">/|\\</span><br />
+                x <span class="red">1467</span>
+              </div>
+              <div class="operator blue">
+                +
+                </div>
+              <div class="equation">
+                25<span class="red">3</span>1<br>
+                <span class="red slants">//|\</span><br />
+                x <span class="red">1467</span>
+              </div>
+              <div class="operator blue">
+                +
+                </div>
+              <div class="equation">
+                253<span class="red">1</span><br>
+                <span class="red slants">///|</span><br />
+                x <span class="red">1467</span>
+              </div>
+              <div class="operator blue equals">
+                =
+                </div>
+                <div class="operator blue equals">
+                 3712977
+                  </div>
+                        </div>
+      </div>
+      <div class="inputs">
+        <div class="input-container">
+          <input data-karatsuba-target="nums" type="text" placeholder="Input Underline">
+          <span class="input__span"></span>
+        </div>
         x
-        <input data-karatsuba-target="nums" type="text" />
-        <button data-action="click->karatsuba#calculate">Greet</button>
-        <div data-karatsuba-target="output">name goes here</div>
-        <div data-karatsuba-target="steps" class="steps"></div>
+        <div class="input-container">
+          <input data-karatsuba-target="nums" type="text" placeholder="Input Underline">
+          <span class="input__span"></span>
+        </div>
+        <button data-action="click->karatsuba#calculate" class="calc-button">Calculate</button>
+      </div>
+        <div data-karatsuba-target="steps" class="steps">
+ 
+          <div class="steps__row steps__rowl0">
+            <div class="steps__savings">
+              <span class="red">Single digit multiplications:</span><br/>
+              Karatsuba: 9 | Standards 16</div>
+          <div id="stepA" class="step stepA karat">
+            <div class="step__label">A</div>
+            <div class="stepA__grid">
+              <div>25</div>
+              <div>31</div>
+              <div>14</div>
+              <div>67</div>
+            </div>
+          </div>
+          
+          <div id="l0stepB" class="step stepB karat gray">
+            <div class="step__label">B</div>
+            25<br>
+            x 14
+            <hr>
+            350
+           <button id="l0BButton" class="step__button">⇣</button></div>
+          <div id="l0stepC" class="step stepC karat gray">
+            <div class="step__label">C</div>
+            31<br>
+            x 67
+            <hr>
+            2077
+           <button id="l0CButton" class="step__button">⇣</button></div>
+          <div id="stepD" class="step stepD blue">
+            <div class="step__label">D</div>
+            25 + 31 = 56
+            <br>
+            14 + 67 = 81
+          </div>
+          
+          <div id="l0stepE" class="step stepE karat gray">
+            <div class="step__label">E</div>
+            56<br>
+            x 81
+            <hr>
+            4536
+           <button id="l0EButton" class="step__button">⇣</button></div>
+          <div id="stepF" class="step stepF blue">
+            <div class="step__label">F</div>
+            4536<br>
+            - 2077<br>
+            - 350
+            <hr>
+            2109
+          </div>
+          
+            <div id="stepG" class="step stepG blue">
+              <div class="step__label">G</div>
+              350<span class="zeros">0000</span><br>
+              + 2109<span class="zeros">00</span><br>
+              + 2077
+              <hr>
+              <span id="result">3712977</span>
+              <br>
+            </div>
+        </div></div></div>
       </div>
     </turbo-frame>
   </div>
