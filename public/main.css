@@ -5,7 +5,14 @@ body {
     "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
     monospace;
   background: #101011;
-  color: #eee;
+  color: #eef;
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+    "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
+    "Verdana Ref", sans-serif;
 }
 
 .inputs {
@@ -101,21 +108,99 @@ input:focus ~ .input__span {
   align-items: center;
 }
 
-.steps > *:not(:first-child) {
+.steps > *:not(:nth-child(-n + 1)) {
   border-left: 3px solid #b844b888;
   border-right: 3px solid #b844b888;
   border-top: 6px solid #b844b888;
   border-bottom: 0;
   border-radius: 40px;
-  box-shadow: 0 -5px 15px 0 #0019;
+  box-shadow: 0 -12px 20px 0 #0018;
   background: #8891;
 }
+.steps__savings {
+  margin: 20px;
+}
 
-.steps__row {
+.karatsuba > div {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.steps__row,
+.steps__rowEx,
+.step_instructions {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: fit-content;
+}
+
+.steps__rowEx {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.steps__rowEx > div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.steps__rowEx.inactive {
+  filter: saturate(50%);
+  background: #8871;
+  opacity: 0.9;
+  transition: 500ms;
+}
+.steps__rowEx:hover {
+  filter: saturate(100%);
+  background: #8870;
+  opacity: 1;
+  transition: 500ms;
+}
+
+.description {
+  font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+    "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
+    "Verdana Ref", sans-serif;
+  max-width: 800px;
+  padding: 20px;
+  min-width: 350px;
+  width: 40%;
+  letter-spacing: 1px;
+  background: #8871;
+  border-top: 3px dashed #eef;
+  border-bottom: 3px dashed #eef;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #7f7f78;
+  flex-wrap: wrap;
+}
+
+.equation {
+  text-align: right;
+}
+
+.operator {
+  text-align: center;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 33px;
+  display: flex;
+  align-self: center;
+}
+
+.slants {
+  opacity: 0.8;
+}
+
+.steps__savings {
+  width: 100%;
 }
 
 .step {
@@ -149,12 +234,44 @@ input:focus ~ .input__span {
   background: #fffd;
 }
 
+.red,
+.blue,
+.gray {
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier,
+    monospace;
+}
+
 .red > .step__label {
   background: #b844b8;
 }
 
 .blue > .step__label {
   background: #4188bb;
+}
+
+.gray {
+  color: #7f7f78;
+}
+
+.step__instruction {
+  min-width: 90px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 120px;
+}
+
+.stepA__example {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.stepA__input {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  text-align: right;
 }
 
 .stepA__grid {
@@ -199,6 +316,11 @@ input:focus ~ .input__span {
   color: #4188bb;
 }
 
+.equation {
+  width: fit-content;
+  float: right;
+}
+
 .step__button {
   position: absolute;
   border-radius: 50%;
@@ -222,24 +344,4 @@ input:focus ~ .input__span {
   border-radius: 50% 50% 0% 0%;
   cursor: auto;
   box-shadow: 0 -2px 2px 0 #001;
-}
-
-.border-blue {
-  border: 1px solid blue;
-  padding: 0.25em;
-}
-
-.border-yellow {
-  border: 1px solid yellow;
-  padding: 0.25em;
-}
-
-.border-purple {
-  border: 1px solid purple;
-  padding: 0.25em;
-}
-
-.border-green {
-  border: 1px solid green;
-  padding: 0.25em;
 }

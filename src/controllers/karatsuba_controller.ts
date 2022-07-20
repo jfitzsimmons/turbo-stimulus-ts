@@ -45,12 +45,12 @@ export default class extends Controller {
       for (let i = rows.length - 1; i > levelNumber - 1; i--)
         rows[i].parentNode.removeChild(rows[i]);
 
+    const stepsSaved = /*html*/ `<div class="steps__savings"> <span class="red">Single digit multiplications:</span><br/>Karatsuba: ${singles.length} | Standards ${standardSteps}</div>`;
+    newRow.innerHTML = stepsSaved;
+
     const figure: string | null = this.Figure(level);
     newRow.classList.add(`steps__row`, `steps__row${level}`);
-    newRow.innerHTML = figure;
-
-    const stepsSaved = `Karatsuba: ${singles.length} | Standards ${standardSteps}`;
-    this.karatsubaTarget.innerHTML = stepsSaved;
+    newRow.innerHTML += figure;
 
     if (figure) {
       this.stepsTarget.appendChild(newRow);
@@ -99,6 +99,8 @@ export default class extends Controller {
       (steps.length = 0),
       (singles.length = 0),
       (dividers.length = 0);
+
+    if (!nums) document.getElementById("rowExample").classList.add("inactive");
 
     const _nums = nums ? nums : this.nums;
 
