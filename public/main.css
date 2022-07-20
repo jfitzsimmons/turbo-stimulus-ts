@@ -7,8 +7,15 @@ body {
   background: #101011;
   color: #eef;
   margin: 0;
-  padding: 0;
+  padding: 0 0 300px 0;
 }
+
+h1 {
+  text-shadow: -3px 3px 2px #001, 3px -1px 1px #101011;
+  font-size: 2.3em;
+  text-decoration: underline;
+}
+
 h2 {
   font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
     "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
@@ -21,6 +28,12 @@ h2 {
   align-items: center;
   background: #001;
   box-shadow: 0 0 50px 0px #4188bb33, inset 0 5px 40px 0px #b844b822;
+  transition: 500ms;
+}
+
+.calculator.active {
+  transition: 500ms;
+  box-shadow: 0 15px 20px 0px #4188bb44, inset 0 5px 40px 0px #b844b800;
 }
 
 .inputs {
@@ -134,6 +147,7 @@ input:focus ~ .input__span {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 }
 
 .steps > *:not(:nth-child(-n + 1)) {
@@ -175,13 +189,13 @@ input:focus ~ .input__span {
   padding-bottom: 20px;
 }
 
-.steps__rowEx.inactive {
+.inactive {
   filter: saturate(70%) sepia(30%);
   background: #8871;
   opacity: 0.9;
   transition: 500ms;
 }
-.steps__rowEx:hover {
+.inactive:hover {
   filter: saturate(100%);
   background: #8870;
   opacity: 1;
@@ -200,6 +214,7 @@ input:focus ~ .input__span {
   background: #8871;
   border-top: 3px dashed #eef;
   border-bottom: 3px dashed #eef;
+  margin-top: 40px;
 }
 
 .description > p {
@@ -233,6 +248,7 @@ input:focus ~ .input__span {
 
 .steps__savings {
   width: 100%;
+  line-height: 22px;
 }
 
 .step {

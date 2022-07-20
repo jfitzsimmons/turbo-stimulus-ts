@@ -211,7 +211,7 @@ Modularize Head-->
                   </div>
                         </div>
       </div>
-      <div class="calculator">
+      <div id="calculator" class="calculator">
         <p class="description">Karatsuba method to multiply 2,531 x 1,467 requires <span class="red">9 single-digit multiplications.</span></p>
         <h2 class="inputs__heading">Karatsuba Calculator:</h2>
         <div class="inputs">
@@ -227,11 +227,11 @@ Modularize Head-->
         <button data-action="click->karatsuba#calculate" class="calc-button">Calculate</button>
       </div>
       </div>
-        <div data-karatsuba-target="steps" class="steps">
+        <div id="steps" data-karatsuba-target="steps" class="steps inactive">
  
           <div class="steps__row steps__rowl0">
             <div class="steps__savings">
-              <span class="red">Single digit multiplications</span> for 2531 x 1467<br/>
+              <span class="red">Single digit multiplications</span> for 2531 x 1467:<br/>
               Karatsuba: 9 | Standard: 16</div>
           <div id="stepA" class="step stepA karat">
             <div class="step__label">A</div>

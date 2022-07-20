@@ -8,10 +8,10 @@ import { isSingle } from "../utils/base";
  * todos
  *
  * removve stimulus
- * init load of karat step default buttons
- * plus whatever else need onload
+\ * plus whatever else need onload
  * add testing back
  * more abstractin is needed / templates / css
+ * commas for large nums
  */
 
 const bce: [number, number][] = [];
@@ -20,13 +20,23 @@ const steps: [number, number, number][] = [];
 const dividers: number[] = [];
 const stepMax = 3602879702092599;
 let standardSteps = 0;
-
 export default class extends Controller {
   static targets = ["nums", "karatsuba", "steps"];
 
   declare readonly numsTargets: HTMLInputElement[];
   declare readonly stepsTarget: Element;
   declare readonly karatsubaTarget: Element;
+
+  connect() {
+    const btnB: HTMLElement = document.getElementById("l0BButton");
+    btnB.addEventListener("click", (e) => this.calculate(e, [25, 14], 1, btnB));
+
+    const btnC: HTMLElement = document.getElementById("l0CButton");
+    btnC.addEventListener("click", (e) => this.calculate(e, [31, 67], 1, btnC));
+
+    const btnE: HTMLElement = document.getElementById("l0EButton");
+    btnE.addEventListener("click", (e) => this.calculate(e, [56, 81], 1, btnE));
+  }
   static calculate: (
     e: MouseEvent,
     nums: number[] | null,
@@ -111,9 +121,12 @@ export default class extends Controller {
       (steps.length = 0),
       (singles.length = 0),
       (dividers.length = 0);
-
-    if (!nums) document.getElementById("rowExample").classList.add("inactive");
-
+    //testjpf move logic /abstract it
+    if (!nums) {
+      document.getElementById("rowExample").classList.add("inactive");
+      document.getElementById("calculator").classList.add("active");
+      document.getElementById("steps").classList.remove("inactive");
+    }
     const _nums = nums ? nums : this.nums;
 
     standardSteps = _nums[0].toString().length * _nums[1].toString().length;
