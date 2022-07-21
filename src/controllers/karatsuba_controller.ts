@@ -3,19 +3,40 @@ import { Controller } from "@hotwired/stimulus";
 import { FigureTemplate } from "../templates/figure.html";
 import { isSingle } from "../utils/base";
 
+/** testjpf
+ *
+ * todos
+ *
+ * removve stimulus
+\ * plus whatever else need onload
+ * add testing back
+ * more abstractin is needed / templates / css
+ * commas for large nums
+ */
+
 const bce: [number, number][] = [];
 const singles: [number, number][] = [];
 const steps: [number, number, number][] = [];
 const dividers: number[] = [];
 const stepMax = 3602879702092599;
 let standardSteps = 0;
-
 export default class extends Controller {
   static targets = ["nums", "karatsuba", "steps"];
 
   declare readonly numsTargets: HTMLInputElement[];
   declare readonly stepsTarget: Element;
   declare readonly karatsubaTarget: Element;
+
+  connect() {
+    const btnB: HTMLElement = document.getElementById("l0BButton");
+    btnB.addEventListener("click", (e) => this.calculate(e, [25, 14], 1, btnB));
+
+    const btnC: HTMLElement = document.getElementById("l0CButton");
+    btnC.addEventListener("click", (e) => this.calculate(e, [31, 67], 1, btnC));
+
+    const btnE: HTMLElement = document.getElementById("l0EButton");
+    btnE.addEventListener("click", (e) => this.calculate(e, [56, 81], 1, btnE));
+  }
   static calculate: (
     e: MouseEvent,
     nums: number[] | null,
@@ -33,19 +54,20 @@ export default class extends Controller {
     return FigureTemplate(level, bce, stepB, stepC, stepE, stepsR, dividers);
   }
 
-  createFigure(level: string) {
+  createFigure(level: string, nums: number[]) {
     const bNums = bce[0];
     const cNums = bce[1];
     const eNums = bce[2];
     const newRow: HTMLElement = document.createElement("div");
     const rows: NodeListOf<Element> = document.querySelectorAll(".steps__row");
     const levelNumber: number = parseInt(level.slice(-1));
+    const _nums = nums ? nums : this.nums;
 
     if (rows.length > levelNumber)
       for (let i = rows.length - 1; i > levelNumber - 1; i--)
         rows[i].parentNode.removeChild(rows[i]);
 
-    const stepsSaved = /*html*/ `<div class="steps__savings"> <span class="red">Single digit multiplications:</span><br/>Karatsuba: ${singles.length} | Standards ${standardSteps}</div>`;
+    const stepsSaved = /*html*/ `<div class="steps__savings"> <span class="red">Single digit multiplications</span> for ${_nums[0]} x ${_nums[1]}:<br/>Karatsuba: ${singles.length} | Standard: ${standardSteps}</div>`;
     newRow.innerHTML = stepsSaved;
 
     const figure: string | null = this.Figure(level);
@@ -99,15 +121,18 @@ export default class extends Controller {
       (steps.length = 0),
       (singles.length = 0),
       (dividers.length = 0);
-
-    if (!nums) document.getElementById("rowExample").classList.add("inactive");
-
+    //testjpf move logic /abstract it
+    if (!nums) {
+      document.getElementById("rowExample").classList.add("inactive");
+      document.getElementById("calculator").classList.add("active");
+      document.getElementById("steps").classList.remove("inactive");
+    }
     const _nums = nums ? nums : this.nums;
 
     standardSteps = _nums[0].toString().length * _nums[1].toString().length;
     this.karatsuba(_nums);
     // make return result so you can use for testing??
-    this.createFigure(level ? "l" + level : "l0");
+    this.createFigure(level ? "l" + level : "l0", nums);
 
     if (button) this.setActiveButtons(level, button);
 

@@ -7,34 +7,74 @@ body {
   background: #101011;
   color: #eef;
   margin: 0;
-  padding: 0;
+  padding: 0 0 300px 0;
 }
+
+h1 {
+  text-shadow: -3px 3px 2px #001, 3px -1px 1px #101011;
+  font-size: 2.3em;
+  text-decoration: underline;
+}
+
 h2 {
   font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
     "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
     "Verdana Ref", sans-serif;
 }
 
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #001;
+  box-shadow: 0 0 50px 0px #4188bb33, inset 0 5px 40px 0px #b844b822;
+  transition: 500ms;
+}
+
+.calculator.active {
+  transition: 500ms;
+  box-shadow: 0 15px 20px 0px #4188bb44, inset 0 5px 40px 0px #b844b800;
+}
+
 .inputs {
   display: flex;
   justify-content: center;
   align-items: end;
+  background: #001;
+  width: 100%;
+  flex-wrap: wrap;
+  padding-bottom: 30px;
+}
+
+.inputs > * {
+  margin-bottom: 10px;
+}
+
+.inputs__heading {
+  max-width: 800px;
+  min-width: 350px;
+  width: 40%;
 }
 
 .input-container {
   position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+  background: #8871;
+  border-radius: 10px 10px 0 0;
 }
 
 input {
   width: 6.5em;
   height: 100%;
   color: white;
-  font-size: inherit;
+  text-align: center;
+  font-size: 2rem;
   font-family: inherit;
   background-color: transparent;
-  border: 1px solid transparent;
+  border: 3px dashed transparent;
   border-bottom-color: #4188bb88;
-  margin: 0 10px;
+  padding: 5px 10px;
 }
 
 input:focus {
@@ -50,7 +90,7 @@ input::placeholder {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 3px;
   background-color: #4188bb;
   transform-origin: bottom right;
   transform: scaleX(0);
@@ -74,7 +114,8 @@ input:focus ~ .input__span {
   background-color: #8898;
   overflow: hidden;
   transition: color 0.4s ease-in-out;
-  margin: 0 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   border-radius: 15px;
 }
 
@@ -106,6 +147,7 @@ input:focus ~ .input__span {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 }
 
 .steps > *:not(:nth-child(-n + 1)) {
@@ -147,13 +189,13 @@ input:focus ~ .input__span {
   padding-bottom: 20px;
 }
 
-.steps__rowEx.inactive {
-  filter: saturate(50%);
+.inactive {
+  filter: saturate(70%) sepia(30%);
   background: #8871;
   opacity: 0.9;
   transition: 500ms;
 }
-.steps__rowEx:hover {
+.inactive:hover {
   filter: saturate(100%);
   background: #8870;
   opacity: 1;
@@ -164,7 +206,7 @@ input:focus ~ .input__span {
   font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
     "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana,
     "Verdana Ref", sans-serif;
-  max-width: 800px;
+  max-width: 900px;
   padding: 20px;
   min-width: 350px;
   width: 40%;
@@ -172,6 +214,11 @@ input:focus ~ .input__span {
   background: #8871;
   border-top: 3px dashed #eef;
   border-bottom: 3px dashed #eef;
+  margin-top: 40px;
+}
+
+.description > p {
+  line-height: 22px;
 }
 
 .content {
@@ -201,6 +248,7 @@ input:focus ~ .input__span {
 
 .steps__savings {
   width: 100%;
+  line-height: 22px;
 }
 
 .step {
@@ -214,7 +262,7 @@ input:focus ~ .input__span {
   color: #fffc;
 }
 
-.step:not(:first-child) {
+.step {
   border-left: 1px solid #987f9888;
   text-shadow: 0 0 2px #001;
 }
@@ -260,6 +308,10 @@ input:focus ~ .input__span {
   margin-bottom: 10px;
   text-align: center;
   width: 120px;
+}
+
+.stepA {
+  border: 0;
 }
 
 .stepA__example {
