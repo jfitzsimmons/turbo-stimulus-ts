@@ -1,7 +1,7 @@
-import { Controller } from "@hotwired/stimulus";
+//import { Controller } from "@hotwired/stimulus";
 //import * as Turbo from "@hotwired/turbo";
-import { FigureTemplate } from "../templates/figure.html";
-import { isSingle } from "../utils/base";
+import { FigureTemplate } from "./templates/figure.html";
+import { isSingle } from "./utils/base";
 
 /** testjpf
  *
@@ -20,7 +20,7 @@ const steps: [number, number, number][] = [];
 const dividers: number[] = [];
 const stepMax = 3602879702092599;
 let standardSteps = 0;
-export default class extends Controller {
+export default class Karatsuba {
   static targets = ["nums", "karatsuba", "steps"];
 
   declare readonly numsTargets: HTMLInputElement[];
@@ -28,6 +28,7 @@ export default class extends Controller {
   declare readonly karatsubaTarget: Element;
 
   connect() {
+    console.log("testjpf");
     const btnB: HTMLElement = document.getElementById("l0BButton");
     btnB.addEventListener("click", (e) => this.calculate(e, [25, 14], 1, btnB));
 
@@ -122,11 +123,10 @@ export default class extends Controller {
       (singles.length = 0),
       (dividers.length = 0);
     //testjpf move logic /abstract it
-    if (!nums) {
-      document.getElementById("rowExample").classList.add("inactive");
-      document.getElementById("calculator").classList.add("active");
-      document.getElementById("steps").classList.remove("inactive");
-    }
+    document.getElementById("rowExample").classList.add("inactive");
+    document.getElementById("calculator").classList.add("active");
+    document.getElementById("steps").classList.remove("inactive");
+
     const _nums = nums ? nums : this.nums;
 
     standardSteps = _nums[0].toString().length * _nums[1].toString().length;
